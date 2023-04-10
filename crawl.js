@@ -1,7 +1,21 @@
 const { JSDOM } = require('jsdom')
 
+const htmlBody = '<html><body><a href="/about"><span>Go to Boot.dev</span></a></body></html>'
+
 const getURLsFromHTML = (htmlBody, baseURL) => {
-    return
+    const dom = new JSDOM(htmlBody);
+    const links = dom.window.document.querySelectorAll('a[href]');
+    const urls = [...links].map(link => link.href);
+    const absoluteUrls = urls.map(url => {
+        const urlObj = new URL(url, baseURL)
+        if (urlObj.protocol === 'about:') {
+            return url
+        } else {
+            return  urlObj.href;
+        }
+    })
+
+    return absoluteUrls
 }
 
 const normalizeURL = (url) => {
@@ -16,7 +30,7 @@ const normalizeURL = (url) => {
     }
 }
 
-normalizeURL('https://wagslane.dev/path/')
+getURLsFromHTML(htmlBody, 'https://wagslane.dev')
 
 module.exports = {
     getURLsFromHTML,

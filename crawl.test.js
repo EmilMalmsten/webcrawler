@@ -25,7 +25,7 @@ test('normalize url to domain/path', () => {
 test('All a tags are found within the HTML body', () => {
     const links = getURLsFromHTML(
         '<a href="/path"> Text </a><a href="/path"> Text </a><a href="/path"> Text </a>',
-        'wagslane.dev'
+        'https://wagslane.dev'
     )
     expect(links.length).toBe(3)
 });
@@ -33,9 +33,9 @@ test('All a tags are found within the HTML body', () => {
 test('relative URLs are converted into absolute URLs', () => {
     const links = getURLsFromHTML(
         '<a href="/path"> Text </a><a href="/path"> Text </a><a href="/path"> Text </a>',
-        'wagslane.dev'
+        'https://wagslane.dev'
     )
-    expect(links[0]).toBe('wagslane.dev/path')
+    expect(links[0]).toBe('https://wagslane.dev/path')
 });
 
 
