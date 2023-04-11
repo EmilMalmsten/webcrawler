@@ -29,14 +29,12 @@ const normalizeURL = (url) => {
 
 const crawlPage = async (baseURL, currentURL, pages) => {
     if (!currentURL.includes(baseURL)) {
-        console.log(`${currentURL} not on ${baseURL}`)
         return pages;
     }
     
     const normCurrURL = await normalizeURL(currentURL);
     if (pages[normCurrURL]) {
         pages[normCurrURL] += 1;
-        console.log(`already visited ${normCurrURL}, returning...`)
         return pages;
     }
     pages[normCurrURL] = 1;
